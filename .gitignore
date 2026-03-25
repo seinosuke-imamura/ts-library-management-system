@@ -1,0 +1,16 @@
+# Node
+node_modules/
+dist/
+
+# SQLite
+*.db
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+library-management-system/target/
