@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>図書一覧 - 図書管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/validation.js}"></script>
+</head>
+<body>
+    <!-- ヘッダーファイルの挿入 -->
+    <div th:replace="~{header :: header}"></div>
+
+    <div class="container">
+        <h1>図書一覧</h1>
+
+        <!-- 図書検索フォーム -->
+        <form th:action="@{/books/search}" method="get">
+            <input type="text" name="keyword" placeholder="検索キーワード" />
+            <button type="submit">検索</button>
+        </form>
+
+        <!-- 図書一覧テーブル -->
+        <table>
+            <thead>
+                <tr>
+                    <th>タイトル</th>
+                    <th>著者名</th>
+                    <th>出版社名</th>
+                    <th>分類</th>
+                    <th>在庫数</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.title}">タイトル</td>
+                    <td th:text="${book.author}">著者名</td>
+                    <td th:text="${book.publisher}">出版社名</td>
+                    <td th:text="${book.category}">分類</td>
+                    <td th:text="${book.quantity}">在庫数</td>
+                    <td>
+                        <!-- 詳細リンク -->
+                        <a th:href="@{'/books/detail/' + ${book.id}}">詳細</a>
+
+						<!-- ADMINのみが編集・削除できる -->
+						<span sec:authorize="hasRole('ADMIN')">
+						    | <a th:href="@{'/books/edit/' + ${book.id}}">編集</a>
+						    | <a th:href="@{'/books/delete/' + ${book.id}}" onclick="return confirm('本当に削除しますか？')">削除</a>
+						</span>
+
+						<!-- STAFFも編集できるが、削除はできない -->
+						<span sec:authorize="hasRole('STAFF') and !hasRole('ADMIN')">
+						    | <a th:href="@{'/books/edit/' + ${book.id}}">編集</a>
+						</span>
+
+						<!-- 図書の追加リンク（STAFFとADMINのみ表示）-->
+						<div>
+						    <a sec:authorize="hasRole('STAFF') or hasRole('ADMIN')" th:href="@{/books/add}">新しい図書を追加</a>
+						</div>>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 図書の追加リンク（STAFFとADMINのみ表示）-->
+        <div>
+            <a th:if="${#authorization.expression('hasRole(''STAFF'') or hasRole(''ADMIN'')')}" th:href="@{/books/add}">新しい図書を追加</a>
+        </div>
+    </div>
+
+    <!-- フッターファイルの挿入 -->
+    <div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

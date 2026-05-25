@@ -11,4 +11,4 @@ App.route("/api/auth", auth);
 App.route("/api/rentals", rentals);
 
 serve({ fetch: App.fetch, port: 3000 });
-
+console.log("Server running at http://localhost:3000");

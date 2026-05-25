@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.id == null} ? '新しいユーザーを追加' : 'ユーザーを編集'">ユーザーフォーム - 図書管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/validation.js}"></script>
+</head>
+<body>
+    <!-- ヘッダーの表示 -->
+    <div th:replace="~{header :: header}"></div>
+
+    <div class="container">
+        <h1 th:text="${user.id == null} ? '新しいユーザーを追加' : 'ユーザーを編集'">ユーザーフォーム</h1>
+        
+        <!-- フォームにIDを追加 -->
+        <form id="userForm" th:action="@{${user.id == null} ? '/users/add' : '/users/edit'}" th:object="${user}" method="post">
+            
+            <!-- ユーザー名フィールド -->
+            <div class="form-group">
+                <label for="username">ユーザー名:</label>
+                <input type="text" id="username" name="username" th:field="*{username}" required />
+                <p class="error-message"></p>
+            </div>
+
+            <!-- パスワード入力欄（新規作成時のみ表示） -->
+            <div class="form-group" th:if="${user.id == null}">
+                <label for="password">パスワード:</label>
+                <input type="password" id="password" name="password" th:field="*{password}" required />
+                <!-- パスワード強度表示 -->
+                <p id="password-strength">パスワードの強度:</p>
+                <p class="error-message"></p>
+            </div>
+
+            <!-- 役割選択 -->
+            <div class="form-group">
+                <label for="roles">役割:</label>
+                <select id="roles" name="roles" multiple th:field="*{roles}" required>
+                    <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role}">役割</option>
+                </select>
+                <p class="error-message"></p>
+            </div>
+
+            <!-- 管理者専用フィールド（例として追加） -->
+            <div class="form-group admin-only" style="display: none;">
+                <label for="adminField">管理者専用フィールド:</label>
+                <input type="text" id="adminField" name="adminField" />
+            </div>
+
+            <!-- フォームの送信とキャンセルボタン -->
+            <div class="form-group">
+                <button type="submit">保存</button>
+                <a th:href="@{/users}">キャンセル</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- フッターの表示 -->
+    <div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

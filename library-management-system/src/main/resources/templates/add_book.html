@@ -1,0 +1,61 @@
+<!-- templates/add_book.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新しい図書の登録 - 図書管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/validation.js}"></script> <!-- 必要に応じてJavaScriptでバリデーションなどの機能を追加できます -->
+</head>
+<body>
+    <!-- ヘッダーのインクルード -->
+    <div th:replace="~{header :: header}"></div>
+
+    <div class="container">
+        <h1>新しい図書を登録</h1>
+        <p>以下のフォームに必要な情報を入力してください。<br>すべての項目が必須です。</p>
+
+        <!-- 図書登録フォーム -->
+        <form th:action="@{/books/add}" method="post">
+            <!-- タイトル入力 -->
+            <div class="form-group">
+                <label for="title">タイトル</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="本のタイトルを入力" required>
+            </div>
+
+            <!-- 著者名入力 -->
+            <div class="form-group">
+                <label for="author">著者名</label>
+                <input type="text" id="author" name="author" class="form-control" placeholder="著者の名前を入力" required>
+            </div>
+
+            <!-- 出版社入力 -->
+            <div class="form-group">
+                <label for="publisher">出版社名</label>
+                <input type="text" id="publisher" name="publisher" class="form-control" placeholder="出版社名を入力" required>
+            </div>
+
+            <!-- 分類入力 -->
+            <div class="form-group">
+                <label for="category">分類</label>
+                <input type="text" id="category" name="category" class="form-control" placeholder="分類を入力（例：フィクション、ノンフィクション）" required>
+            </div>
+
+            <!-- 在庫数入力 -->
+            <div class="form-group">
+                <label for="quantity">在庫数</label>
+                <input type="number" id="quantity" name="quantity" class="form-control" min="0" placeholder="在庫数を入力" required>
+            </div>
+
+            <!-- 登録ボタン -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">登録</button>
+                <a href="/books" class="btn btn-secondary">キャンセル</a> <!-- キャンセルボタンを追加して、図書一覧に戻るリンクを提供 -->
+            </div>
+        </form>
+    </div>
+
+    <!-- フッターのインクルード -->
+   <div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

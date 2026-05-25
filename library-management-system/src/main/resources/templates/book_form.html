@@ -1,0 +1,52 @@
+<!-- templates/book_form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.id == null} ? '新しい図書を追加' : '図書を編集'">図書フォーム - 図書管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/validation.js}"></script>
+</head>
+<body>
+    <div th:replace="~{header :: header}"></div>
+
+    <div class="container">
+        <h1 th:text="${book.id == null} ? '新しい図書を追加' : '図書を編集'">図書フォーム</h1>
+        <!-- フォームにIDを追加 -->
+        <form id="bookForm" th:action="@{${book.id == null} ? '/books/add' : '/books/edit'}" th:object="${book}" method="post">
+            <div class="form-group">
+                <label for="title">タイトル:</label>
+                <input type="text" id="title" name="title" th:field="*{title}" required />
+                <!-- エラーメッセージ表示用の要素 -->
+                <p class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label for="author">著者名:</label>
+                <input type="text" id="author" name="author" th:field="*{author}" required />
+                <p class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label for="publisher">出版社名:</label>
+                <input type="text" id="publisher" name="publisher" th:field="*{publisher}" required />
+                <p class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label for="category">分類:</label>
+                <input type="text" id="category" name="category" th:field="*{category}" required />
+                <p class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label for="quantity">在庫数:</label>
+                <input type="number" id="quantity" name="quantity" th:field="*{quantity}" min="0" required />
+                <p class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <button type="submit">保存</button>
+                <a th:href="@{/books}">キャンセル</a>
+            </div>
+        </form>
+    </div>
+
+   <div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!-- templates/header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>図書管理システム</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/}">ホーム</a></li>
+                    <li><a th:href="@{/books}">図書一覧</a></li>
+                    <!-- スタッフや管理者のみがアクセスできるリンク -->
+                    <li th:if="${#authorization.expression('hasRole(''STAFF'')')}">
+                        <a th:href="@{/users}">ユーザ一覧</a>
+                    </li>
+                    <li th:if="${#authorization.expression('hasRole(''STAFF'')')}">
+                        <a th:href="@{/rentals}">レンタル記録一覧</a>
+                    </li>
+                    <li th:if="${#authorization.expression('hasRole(''STAFF'')')}">
+                        <a th:href="@{/books/add}">新規図書登録</a>
+                    </li>
+                    <!-- ログイン／ログアウトリンクを表示 -->
+                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/logout}">ログアウト</a>
+                    </li>
+                    <li th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <a th:href="@{/login}">ログイン</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</body>
+</html>

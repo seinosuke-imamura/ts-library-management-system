@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>図書管理ツール</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <!-- ユーザーがログインしている場合 -->
+    <div th:if="${#authentication != null}">
+        <p>Logged in as: <span th:text="${#authentication.name}"></span></p>
+
+        <h1>図書管理ツール</h1>
+
+        <!-- メニューリンク -->
+        <div class="navigation">
+            <h2>メニュー</h2>
+            <ul>
+                <li><a th:href="@{/books}">図書一覧</a></li>
+                <li><a th:href="@{/users}">ユーザ一覧</a></li>
+                <li><a th:href="@{/rentals}">レンタル記録一覧</a></li>
+            </ul>
+        </div>
+
+        <!-- 図書検索フォーム -->
+        <h2>書籍検索</h2>
+        <form th:action="@{/books/search}" method="get">
+            <label for="title">タイトル:</label>
+            <input type="text" id="title" name="title">
+            <label for="author">著者名:</label>
+            <input type="text" id="author" name="author">
+            <button type="submit">検索</button>
+        </form>
+
+        <!-- 検索結果表示 -->
+        <h3>検索結果</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>タイトル</th>
+                    <th>著者名</th>
+                    <th>出版年</th>
+                    <th>ISBN</th>
+                    <th>出版社</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publishedYear}"></td>
+                    <td th:text="${book.isbn}"></td>
+                    <td th:text="${book.publisher}"></td>
+                    <td>
+                        <a th:href="@{/books/edit/{id}(id=${book.id})}">編集</a>
+                        <a th:href="@{/books/delete/{id}(id=${book.id})}" onclick="return confirm('本当に削除しますか？')">削除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 図書登録フォーム -->
+        <h2>書籍登録</h2>
+        <form th:action="@{/books/add}" method="post">
+            <label for="title">タイトル:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="author">著者名:</label>
+            <input type="text" id="author" name="author" required>
+
+            <label for="publishedYear">出版年:</label>
+            <input type="number" id="publishedYear" name="publishedYear" required>
+
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" name="isbn" required>
+
+            <label for="publisher">出版社:</label>
+            <input type="text" id="publisher" name="publisher" required>
+
+            <button type="submit">登録</button>
+        </form>
+
+        <!-- ログアウトリンク -->
+        <div>
+            <a th:href="@{/logout}">ログアウト</a>
+        </div>
+    </div>
+
+    <!-- ユーザーがログインしていない場合 -->
+    <div th:if="${#authentication == null}">
+        <p>Not logged in</p>
+        <a th:href="@{/login}">ログイン</a>
+    </div>
+
+</body>
+</html>

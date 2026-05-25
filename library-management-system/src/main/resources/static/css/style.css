@@ -1,0 +1,136 @@
+/* src/main/resources/static/css/style.css */
+
+/* 全体のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* コンテナ */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ヘッダーとナビゲーション */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header nav ul {
+    list-style: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* フッター */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* フォーム */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.form-group .error-message {
+    color: red;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+/* パスワード強度表示 */
+#password-strength {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* テーブル */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+/* ボタン */
+button {
+    padding: 10px 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* エラーメッセージ */
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+/* リンクのスタイル */
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 削除リンクの警告色 */
+a.delete-link {
+    color: red;
+}
+
+a.delete-link:hover {
+    text-decoration: underline;
+}
+
+/* 管理者専用フィールドのスタイル（必要に応じて） */
+.admin-only {
+    /* 特別なスタイルが必要な場合はここに記述 */
+}

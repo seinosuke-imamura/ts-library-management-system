@@ -1,0 +1,32 @@
+<!-- templates/error.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>エラーページ - 図書管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- ヘッダーのインクルード -->
+    <div th:replace="~{header :: header}"></div>
+
+    <div class="container">
+        <h1>エラーが発生しました</h1>
+        <p>申し訳ございませんが、リクエストの処理中にエラーが発生しました。<br>以下の情報を確認してください。</p>
+
+        <div class="error-details">
+            <!-- エラーメッセージの表示 -->
+            <p th:text="${error}">不明なエラーが発生しました。</p>
+        </div>
+
+        <div class="error-actions">
+            <!-- ホームに戻るリンクを追加 -->
+            <a href="/" class="btn btn-primary">ホームに戻る</a>
+            <a href="javascript:history.back()" class="btn btn-secondary">前のページに戻る</a>
+        </div>
+    </div>
+
+    <!-- フッターのインクルード -->
+    <div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

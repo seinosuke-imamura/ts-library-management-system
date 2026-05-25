@@ -1,0 +1,27 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ダッシュボード - 図書管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- ヘッダーのインクルード -->
+    <div th:replace="~{header :: header}"></div>
+
+    <div class="container">
+        <h1>ダッシュボード</h1>
+        <p>こちらから各種機能にアクセスできます。</p>
+        <ul>
+            <li><a th:href="@{/books}">図書一覧</a></li>
+            <li th:if="${#authorization.expression('hasRole(''STAFF'')')}"><a th:href="@{/users}">ユーザ一覧</a></li>
+            <li th:if="${#authorization.expression('hasRole(''STAFF'')')}"><a th:href="@{/rentals}">レンタル記録一覧</a></li>
+            <li th:if="${#authorization.expression('hasRole(''STAFF'')')}"><a th:href="@{/books/add}">新規図書登録</a></li>
+        </ul>
+    </div>
+
+    <!-- フッターのインクルード -->
+   <div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

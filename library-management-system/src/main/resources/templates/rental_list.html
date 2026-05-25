@@ -1,0 +1,37 @@
+<!-- templates/rental_list.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>レンタル記録一覧 - 図書管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{header :: header}"></div>
+
+    <div class="container">
+        <h1>レンタル記録一覧</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>図書タイトル</th>
+                    <th>借りたユーザ</th>
+                    <th>借りた日</th>
+                    <th>返却期限</th>
+                </tr>
+            </thead>
+            <tbody>
+				<tr th:each="rental : ${rentals}">
+				    <td th:text="${rental.user.username}">ユーザー名</td>
+				    <td th:text="${rental.book.title}">書籍タイトル</td>
+					<td th:text="${rental.rentedDate}">貸出日</td>
+					<td th:text="${rental.dueDate}">返却日</td>
+				</tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="~{header :: header}"></div>
+</body>
+</html>

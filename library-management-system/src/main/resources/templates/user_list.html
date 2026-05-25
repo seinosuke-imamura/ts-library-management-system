@@ -1,0 +1,48 @@
+<!-- templates/user_list.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー一覧 - 図書管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- 必要に応じてJavaScriptファイルを読み込む -->
+    <script th:src="@{/js/validation.js}"></script>
+</head>
+<body>
+    <div th:replace="~{header :: header}"></div>
+
+    <div class="container">
+        <h1>ユーザー一覧</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ユーザー名</th>
+                    <th>役割</th>
+                    <th>アカウント状態</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.username}">ユーザー名</td>
+                    <td th:text="${user.roles}">役割</td>
+                    <td th:text="${user.accountNonLocked} ? '有効' : 'ロック中'">アカウント状態</td>
+                    <td>
+                        <a th:href="@{'/users/edit/' + ${user.id}}">編集</a>
+                        <!-- 削除リンクにクラスを追加 -->
+                        <a th:href="@{'/users/delete/' + ${user.id}}" class="delete-link">削除</a>
+                        <span th:if="${!user.accountNonLocked}">
+                            | <a th:href="@{'/users/unlock/' + ${user.id}}">ロック解除</a>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <a th:href="@{/users/add}">新しいユーザーを追加</a>
+        </div>
+    </div>
+
+    <div th:replace="~{footer :: footer}"></div>
+</body>
+</html>
