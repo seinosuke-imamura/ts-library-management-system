@@ -12,6 +12,7 @@ type AuthContextType = {
     login: (username: string, password: string) => Promise<boolean>;
     logout: () => void;
     isLoggedIn: boolean;
+    isLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -41,11 +43,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     setToken(null);
                     setUser(null);
                     setIsLoggedIn(false);
-                    return;
+                } else {
+                    setUser({ sub: payload.sub, role: payload.role });
+                    setIsLoggedIn(true);
                 }
-                setUser({ sub: payload.sub, role: payload.role });
-                setIsLoggedIn(true);
-        }
+            }
+        setIsLoading(false);
     }, []);
     const login = async (username: string, password: string) => {
             const response = await apiClient("/api/auth/login", {
@@ -77,7 +80,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setIsLoggedIn(false);
     };
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, isLoggedIn }}>
+        <AuthContext.Provider value={{ user, token, login, logout, isLoggedIn, isLoading }}>
             {children}
         </AuthContext.Provider>
     );

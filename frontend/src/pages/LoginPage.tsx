@@ -1,13 +1,13 @@
 import { useAuth } from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-
+import { Navigate } from 'react-router-dom'
 
 function LoginPage() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const { login } = useAuth()
+    const { login, isLoggedIn, isLoading } = useAuth()
     const navigate = useNavigate()
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -19,6 +19,13 @@ function LoginPage() {
             } else {
                 setError('ユーザー名またはパスワードが正しくありません。')
             }
+    }
+
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
+    if (isLoggedIn) {
+        return <Navigate to="/books" replace/>
     }
     return (
         <div>
