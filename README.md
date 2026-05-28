@@ -9,6 +9,32 @@ TypeScript で実装した図書管理システムです。
 - `backend`: Hono / TypeScript の REST API
 - `library-management-system`: 既存資産として残している旧実装ディレクトリ
 
+## プログラム構成
+
+```text
+.
+├── backend
+│   ├── src
+│   │   ├── db                # DB接続・スキーマ・seed
+│   │   ├── middleware        # 認証・認可ミドルウェア
+│   │   └── routes            # auth / books / rentals API
+│   ├── drizzle               # マイグレーション
+│   ├── drizzle.config.ts
+│   └── package.json
+├── frontend
+│   ├── src
+│   │   ├── components        # レイアウトなど共通UI
+│   │   ├── hooks             # 認証などのカスタムフック
+│   │   ├── lib               # API 呼び出しユーティリティ
+│   │   ├── pages             # 画面コンポーネント
+│   │   ├── types             # 型定義
+│   │   └── App.tsx
+│   └── package.json
+├── library-management-system # 旧実装（参照用）
+├── package.json              # ルート依存関係
+└── README.md
+```
+
 ## 技術スタック
 
 ### フロントエンド
