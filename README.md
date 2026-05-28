@@ -7,7 +7,6 @@ TypeScript で実装した図書管理システムです。
 
 - `frontend`: React / TypeScript の UI
 - `backend`: Hono / TypeScript の REST API
-- `library-management-system`: 既存資産として残している旧実装ディレクトリ
 
 ## プログラム構成
 
@@ -30,7 +29,6 @@ TypeScript で実装した図書管理システムです。
 │   │   ├── types             # 型定義
 │   │   └── App.tsx
 │   └── package.json
-├── library-management-system # 旧実装（参照用）
 ├── package.json              # ルート依存関係
 └── README.md
 ```
