@@ -33,3 +33,12 @@ export type ApiResponse<T> = {
 };
 
 export type BookInput = Omit<Book, 'id'>
+
+export type RentalWithDetails = Rental & {
+    id: string;
+    username: string;
+    bookTitle: string;
+    rentedDate: number;
+    dueDate: number;
+    returnDate: number | null;
+};
